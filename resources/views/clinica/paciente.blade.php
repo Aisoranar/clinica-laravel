@@ -153,19 +153,10 @@
         </table>
         
 
-      <button class="btn btn-primary2" id="add" onclick="toggleForm()"> 
-            <span class="glyphicon glyphicon-plus-sign"></span> Agregar Nuevo Paciente
+      <button class="btn btn-primary2" id="add"> 
+      <a href="{{ route('paciente.create') }}">
+                    Crear Nuevo Paciente
         </button>
-
-        <form action="{{ route('paciente.store') }}" id="addPatientForm" method="POST">
-            @csrf
-            <input type="text" id="nombres" name="nombres" placeholder="Nombre">
-            <input type="text" id="apellidos" name="apellidos" placeholder="Apellidos">
-            <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" placeholder="YYYY-MM-DD">
-            <input type="text" id="direccion" name="direccion" placeholder="Dirección">
-            <input type="text" id="telefono" name="telefono" placeholder="Teléfono">
-            <button type="submit" class="btn btn-success">Guardar</button>
-        </form>
 
     </div>
 

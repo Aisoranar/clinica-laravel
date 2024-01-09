@@ -54,8 +54,8 @@
     <h1>Editar Paciente</h1>
 
     <form action="{{ route('paciente.update', ['id' => $paciente->id]) }}" method="POST">
-        @csrf
-        @method('PUT')
+    @csrf
+    @method('PUT')
 
         <label for="nombres">Nombres:</label>
         <input type="text" id="nombres" name="nombres" value="{{ $paciente->nombres }}"><br><br>
@@ -73,7 +73,9 @@
         <input type="text" id="telefono" name="telefono" value="{{ $paciente->telefono }}"><br><br>
 
         
-        <button type="submit">Guardar Cambios</button>
+        <input type="hidden" name="id_medico" value="{{ $paciente->id_medico }}">
+    
+    <button type="submit">Guardar Cambios</button>
     </form>
 </body>
 </html>

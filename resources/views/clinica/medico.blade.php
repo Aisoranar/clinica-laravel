@@ -108,7 +108,7 @@
     </div>
 
     <div class="table-content">
-    <h1 style="margin: 0;">Medico</h1>
+    <h1 style="margin: 0;">Lista de Medicos</h1>
 
     <table id="table-list">
             <thead>

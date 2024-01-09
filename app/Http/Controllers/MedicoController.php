@@ -83,7 +83,7 @@ public function destroy($id)
     $medicos->delete();
     
     // Recuperar la lista actualizada de pacientes después de eliminar
-    $medicos = Medico::orderBy('fecha_nacimiento', 'asc')->get();
+    $medicos = Medico::orderBy('nombres', 'asc')->get();
     
     // Redirecciona a la vista de pacientes con un mensaje de éxito
     return view("clinica.medico", compact('medicos'))->with('success', 'Medico eliminado correctamente');

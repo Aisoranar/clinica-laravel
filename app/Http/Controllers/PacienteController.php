@@ -15,9 +15,13 @@ class PacienteController extends Controller
     public function index()
 {
     $pacientes = Paciente::orderBy('fecha_nacimiento', 'asc')->get();
-    //dd($pacientes); 
     return view("clinica.paciente", compact('pacientes'));
 }
+
+    public function create()
+    {
+        return view('clinica.nuevo_paciente');
+    }
 
 
     // EndPoint: Crea un nuevo paciente
@@ -36,7 +40,12 @@ class PacienteController extends Controller
         $paciente->id_medico = $id_aleatorio; //id aleatorio
 
         $paciente->save();
-        return $this->index();
+
+        // Obtener la lista actualizada de pacientes después de guardar
+        $pacientes = Paciente::orderBy('fecha_nacimiento', 'asc')->get();
+
+        // Redireccionar a la vista de lista de pacientes después de guardar
+        return redirect('/paciente')->with('success', 'Paciente creado correctamente');
 
     } catch (QueryException $e) {
         // Manejar errores específicos aquí
@@ -48,21 +57,30 @@ class PacienteController extends Controller
     }
 }
 
-    public function update(Request $request)
-{
-    $paciente = Paciente::findOrFail($request->id);
-    
-    $paciente -> nombres = $request->nombres;
-    $paciente -> apellidos = $request->apellidos;
-    $paciente -> fecha_nacimiento = $request->fecha_nacimiento;
-    $paciente -> direccion = $request->direccion;
-    $paciente -> telefono = $request->telefono;
-    $paciente -> id_medico = $request->id_medico;
-    
-    $paciente->save();
-    return $this->index();
 
+public function update(Request $request, $id)
+{
+    try {
+        $paciente = Paciente::findOrFail($id);
+
+        // Asigna los valores del formulario a las propiedades del paciente
+        $paciente->nombres = $request->input('nombres');
+        $paciente->apellidos = $request->input('apellidos');
+        $paciente->fecha_nacimiento = $request->input('fecha_nacimiento');
+        $paciente->direccion = $request->input('direccion');
+        $paciente->telefono = $request->input('telefono');
+        $paciente->id_medico = $request->input('id_medico'); // Asegúrate de recibir el id_medico desde el formulario
+
+        $paciente->save();
+
+        return redirect('/paciente')->with('success', 'Paciente actualizado correctamente');
+
+    } catch (\Exception $e) {
+        return back()->withError('Error al actualizar el paciente: ' . $e->getMessage());
+    }
 }
+
+
      
 public function destroy($id)
 {
@@ -82,11 +100,8 @@ public function destroy($id)
 
     public function edit($id)
     {
-        // Encuentra el paciente por su ID
         $paciente = Paciente::findOrFail($id);
 
-        // Si encuentra al paciente, muestra el formulario de edición
         return view('clinica.editar_paciente', compact('paciente'));
     }
-
 }

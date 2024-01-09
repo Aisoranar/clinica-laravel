@@ -8,6 +8,9 @@ use Illuminate\Database\QueryException;
 
 use App\Models\Medico;
 use Illuminate\Support\Facades\DB;
+use LengthException;
+
+use function Laravel\Prompts\select;
 
 class PacienteController extends Controller
 {
@@ -28,21 +31,22 @@ class PacienteController extends Controller
     public function store(Request $request)
 {
     try {
-        $ultimo_id = DB::table('medicos')->max('id'); // buscar en la tabla de medicos el ID mas alto
-        $id_aleatorio = rand(1, $ultimo_id); // busca un numero aleatorio entre el 1 y el id mas alto de la tabla
+        //$ultimo_id = DB::table('medicos')->max('id'); // buscar en la tabla de medicos el ID mas alto
+        $medicos = DB::table('medicos')->select("id")->get();
 
+        $id_aleatorio = rand(0, count($medicos)); // busca un numero aleatorio entre el 1 y el id mas alto de la tabla
+        
         $paciente = new Paciente();
         $paciente->nombres = $request->nombres;
         $paciente->apellidos = $request->apellidos;
         $paciente->fecha_nacimiento = $request->fecha_nacimiento;
         $paciente->direccion = $request->direccion;
-        $paciente->telefono = $request->telefono;
-        $paciente->id_medico = $id_aleatorio; //id aleatorio
-
+        $paciente->telefono = $request->telefono;       
+        $paciente->id_medico = $medicos[$id_aleatorio]->id; //id aleatorio
         $paciente->save();
 
         // Obtener la lista actualizada de pacientes después de guardar
-        $pacientes = Paciente::orderBy('fecha_nacimiento', 'asc')->get();
+        $paciente = Paciente::orderBy('fecha_nacimiento', 'asc')->get();
 
         // Redireccionar a la vista de lista de pacientes después de guardar
         return redirect('/paciente')->with('success', 'Paciente creado correctamente');

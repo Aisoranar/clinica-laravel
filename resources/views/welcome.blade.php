@@ -10,7 +10,13 @@
             margin: 0;
             padding: 0;
             font-family: Arial, sans-serif;
-            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Establecer altura mínima del cuerpo */
+        }
+
+        main {
+            flex: 1; /* Para ocupar todo el espacio restante */
             display: flex;
             flex-direction: column;
         }
@@ -23,6 +29,7 @@
             font-size: 24px;
             color: #fff;
             transition: background-color 0.3s, color 0.3s;
+            text-decoration: none;
         }
 
         .panel:nth-child(odd) {
@@ -38,18 +45,23 @@
             color: #fff; /* Cambio de color del texto al pasar el mouse */
         }
 
-        a {
-            text-decoration: none;
-            color: inherit;
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
         }
     </style>
 </head>
 <body>
-    <a href="/paciente" class="panel">
-        <i class="icon fas fa-user" ></i>  Paciente
-    </a>
-    <a href="/medico" class="panel">
-        <i class="icon fas fa-user-md" ></i>  Médico
-    </a>
+    <main>
+        <a href="/paciente" class="panel">
+            <i class="icon fas fa-user" ></i>  Paciente
+        </a>
+        <a href="/medico" class="panel">
+            <i class="icon fas fa-user-md" ></i>  Médico
+        </a>
+    </main>
+    <footer>Aisor Anaya</footer>
 </body>
 </html>

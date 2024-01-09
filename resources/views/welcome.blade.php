@@ -4,59 +4,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ClinicaXYZ</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
         body {
             margin: 0;
             padding: 0;
+            font-family: Arial, sans-serif;
+            height: 100vh;
             display: flex;
             flex-direction: column;
-            height: 100vh;
+        }
+
+        .panel {
+            flex: 1;
+            display: flex;
             justify-content: center;
             align-items: center;
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0; /* Color de fondo */
+            font-size: 24px;
+            color: #fff;
+            transition: background-color 0.3s, color 0.3s;
         }
 
-        h1 {
-            margin-bottom: 20px;
-            color: #333; /* Color del texto del encabezado */
+        .panel:nth-child(odd) {
+            background-color: #3498db; /* Color azul para la sección de Paciente */
         }
 
-        ul {
-            list-style: none;
-            display: flex;
-            width: 100%;
-            padding: 0;
+        .panel:nth-child(even) {
+            background-color: #27ae60; /* Color verde para la sección de Médico */
         }
 
-        li {
-            width: 50%;
-            text-align: center;
-        }
-
-        li:nth-child(odd) {
-            background-color: #3498db; /* Color de fondo azul para uno de los elementos */
+        .panel:hover {
+            background-color: #2980b9; /* Cambio de color al pasar el mouse en Paciente */
+            color: #fff; /* Cambio de color del texto al pasar el mouse */
         }
 
         a {
-            display: block;
-            padding: 20px;
             text-decoration: none;
-            color: #fff; /* Color del texto de los enlaces */
-            transition: background-color 0.3s ease;
-        }
-
-        a:hover {
-            background-color: #2980b9; /* Cambio de color al pasar el ratón */
+            color: inherit;
         }
     </style>
 </head>
 <body>
-    <h1>ClinicaXYZ</h1>
-
-    <ul>
-        <li><a href="/paciente">Paciente</a></li>
-        <li><a href="/medico">Médico</a></li>
-    </ul>
+    <a href="/paciente" class="panel">
+        <i class="icon fas fa-user" ></i>  Paciente
+    </a>
+    <a href="/medico" class="panel">
+        <i class="icon fas fa-user-md" ></i>  Médico
+    </a>
 </body>
 </html>
